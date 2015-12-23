@@ -30,7 +30,7 @@ clientSchema.statics.createNewClient = function(developerId, clientType, applica
 };
 
 clientSchema.statics.authenticateClientBySecret = function (clientSecret, cb) {
-  clientModel.findOne({clientSecret: clientSecret, activated: true}, '_id clientId applicationName', cb);
+  clientModel.findOne({clientSecret: clientSecret, activated: true}, '_id clientType clientId applicationName', cb);
 };
 
 var clientModel = mongoose.model('Client', clientSchema);
