@@ -12,6 +12,13 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+//Setting routes
+var ping = require(__base + 'app/route/ping');
+
+app.use('/ping', ping);
+
+
 // 404 error
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

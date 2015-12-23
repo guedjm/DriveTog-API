@@ -6,8 +6,8 @@ module.exports = {
     database: "driveTog"
   },
   server: {
-    vhost: true,
-    port: 3000,
+    vhost: false,
+    port: 3001,
     url: "api.drivetog.local",
     fullUrl: "http://api.drivetog.local:3000"
   }
