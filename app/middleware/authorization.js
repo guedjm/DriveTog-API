@@ -81,4 +81,4 @@ function authenticateUser(authParam, req, res, next) {
   });
 }
 
-module.exports.authenticateRequest = authenticateRequest;
+module.exports = authenticateRequest;

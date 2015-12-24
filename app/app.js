@@ -12,6 +12,9 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//Setting custom middleware
+var authorizationMiddleware = require(__base + 'app/middleware/authorization');
+app.use(authorizationMiddleware);
 
 //Setting routes
 var ping = require(__base + 'app/route/ping');
@@ -23,13 +26,19 @@ app.use('/ping', ping);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+
+  logger.info('404 not found : ' + req.baseUrl + req.url);
+
   next(err);
 });
 
 //Error handler
 app.use(function(err, req, res, next) {
-  logger.error(req.baseUrl);
-  logger.error(err.stack);
+
+  if (err.status != 404) {
+    logger.error(req.baseUrl);
+    logger.error(err.stack);
+  }
   res.status(err.status || 500);
   res.send();
 });

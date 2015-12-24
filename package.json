@@ -17,6 +17,7 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "mongoose": "^4.3.3",
+    "sha1": "^1.1.1",
     "vhost": "^3.0.2",
     "winston": "^2.1.1"
   }
