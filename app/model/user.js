@@ -7,11 +7,12 @@ var userSchema = new mongoose.Schema({
   lastName: String,
   firstName: String,
   pseudo: String,
+  registrationClient: {type: mongoose.Schema.Types.ObjectId, ref: 'Client'},
   registrationDate: Date
 });
 
 
-userSchema.statics.createNewUser = function(email, password, lastName, firstName, pseudo, cb) {
+userSchema.statics.createNewUser = function(email, password, lastName, firstName, pseudo, clientId, cb) {
   var now = new Date();
 
   userModel.create({
@@ -20,6 +21,7 @@ userSchema.statics.createNewUser = function(email, password, lastName, firstName
     lastName: lastName,
     firstName: firstName,
     pseudo: pseudo,
+    registrationClient: clientId,
     registrationDate: now
   }, cb);
 };
@@ -28,6 +30,10 @@ userSchema.statics.getUserByCredentials = function (email, password, cb) {
   var cryptedPassword = sha1(password + email);
 
   userModel.findOne({email: email, password: cryptedPassword}, '', cb);
+};
+
+userSchema.statics.getUserByEmail = function (email, cb) {
+  userModel.findOne({email: email}, '_id', cb);
 };
 
 userSchema.statics.getUserById = function (userId, cb) {
