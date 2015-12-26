@@ -11,6 +11,7 @@ var database = require(__base + 'bin/database');
 
 function start() {
 
+  logger.info('Logger started');
   database.initializeDatabaseConnection();
 
   var app = require(__dirname + '/../app/app');
@@ -36,6 +37,10 @@ function start() {
   httpServer.on('error', onError);
   httpServer.on('listening', onListening);
   httpServer.listen(config.server.port);
+}
+
+function disableLog() {
+  logger.level = 'error';
 }
 
 function onError(error) {
@@ -65,3 +70,4 @@ function onListening() {
 }
 
 module.exports.start = start;
+module.exports.disableLog = disableLog;

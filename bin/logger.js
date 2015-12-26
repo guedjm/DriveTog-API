@@ -6,6 +6,4 @@ var logger = new (winston.Logger)({
   ]
 });
 
-logger.info('Logger started');
-
 module.exports = logger;
