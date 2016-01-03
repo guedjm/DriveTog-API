@@ -18,8 +18,7 @@ router.post('', function (req, res, next) {
   }
   else {
     //Check request
-    if (req.body.email == undefined || req.body.password == undefined || req.body.firstName == undefined
-      || req.body.lastName == undefined || req.body.pseudo == undefined) {
+    if (req.body.email == undefined || req.body.password == undefined) {
       next(error.invalidRequestError);
     }
     else {
@@ -45,8 +44,7 @@ router.post('', function (req, res, next) {
             else {
 
               //Create user
-              userModel.createNewUser(req.body.email, req.body.password, req.body.lastName, req.body.firstName,
-                req.body.pseudo, req.authClient._id, function (err, newUser) {
+              userModel.createNewUser(req.body.email, req.body.password, req.authClient._id, function (err, newUser) {
                   if (err || newUser == undefined) {
                     logger.error('Unable to create new user');
                     next(error.internalServerError);
@@ -56,10 +54,7 @@ router.post('', function (req, res, next) {
 
                     res.status(201);
                     res.send({
-                      email: newUser.email,
-                      lastName: newUser.lastName,
-                      firstName: newUser.firstName,
-                      pseudo: newUser.pseudo
+                      email: newUser.email
                     });
                   }
                 });

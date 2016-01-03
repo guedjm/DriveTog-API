@@ -21,10 +21,7 @@ describe('Testing /v1/user', function () {
         url: userUrl,
         form: {
           email: config.test.user.email,
-          password: config.test.user.password,
-          firstName: config.test.user.firstName,
-          lastName: config.test.user.lastName,
-          pseudo: config.test.user.pseudo
+          password: config.test.user.password
         }
       }, function (err, res, body) {
 
@@ -46,10 +43,7 @@ describe('Testing /v1/user', function () {
         url: userUrl,
         form: {
           email: config.test.user.email,
-          password: config.test.user.password,
-          firstName: config.test.user.firstName,
-          lastName: config.test.user.lastName,
-          pseudo: config.test.user.pseudo
+          password: config.test.user.password
         },
         headers: {
           Authorization: 'Basic ' + config.test.client.clientSecret + 'r'
@@ -73,10 +67,7 @@ describe('Testing /v1/user', function () {
       request.post({
         url: userUrl,
         form: {
-          email: config.test.user.email,
-          password: config.test.user.password,
-          firstName: config.test.user.firstName,
-          lastName: config.test.user.pseudo
+          email: config.test.user.email
         },
         headers: {
           Authorization: 'Basic ' + config.test.client.clientSecret
@@ -101,10 +92,7 @@ describe('Testing /v1/user', function () {
         url: userUrl,
         form: {
           email: config.test.user.pseudo,
-          password: config.test.user.password,
-          firstName: config.test.user.firstName,
-          lastName: config.test.user.lastName,
-          pseudo: config.test.user.pseudo
+          password: config.test.user.password
         },
         headers: {
           Authorization: 'Basic ' + config.test.client.clientSecret
@@ -130,10 +118,7 @@ describe('Testing /v1/user', function () {
         url: userUrl,
         form: {
           email: config.test.user.email,
-          password: 'a',
-          firstName: config.test.user.firstName,
-          lastName: config.test.user.lastName,
-          pseudo: config.test.user.pseudo
+          password: 'a'
         },
         headers: {
           Authorization: 'Basic ' + config.test.client.clientSecret
@@ -158,10 +143,7 @@ describe('Testing /v1/user', function () {
         url: userUrl,
         form: {
           email: config.test.user.email,
-          password: config.test.user.password,
-          firstName: config.test.user.firstName,
-          lastName: config.test.user.lastName,
-          pseudo: config.test.user.pseudo
+          password: config.test.user.password
         },
         headers: {
           Authorization: 'Basic ' + config.test.client.clientSecret
@@ -173,12 +155,6 @@ describe('Testing /v1/user', function () {
         expect(res.statusCode).to.equal(201);
         expect(reply.email).to.not.be.undefined;
         expect(reply.email).to.equal(config.test.user.email);
-        expect(reply.firstName).to.not.be.undefined;
-        expect(reply.firstName).to.equal(config.test.user.pseudo);
-        expect(reply.lastName).to.not.be.undefined;
-        expect(reply.lastName).to.equal(config.test.user.pseudo);
-        expect(reply.pseudo).to.not.be.undefined;
-        expect(reply.pseudo).to.equal(config.test.user.pseudo);
         done();
       });
     });
@@ -190,10 +166,7 @@ describe('Testing /v1/user', function () {
         url: userUrl,
         form: {
           email: config.test.user.email,
-          password: config.test.user.password,
-          firstName: config.test.user.firstName,
-          lastName: config.test.user.lastName,
-          pseudo: config.test.user.pseudo
+          password: config.test.user.password
         },
         headers: {
           Authorization: 'Basic ' + config.test.client.clientSecret

@@ -12,15 +12,12 @@ var userSchema = new mongoose.Schema({
 });
 
 
-userSchema.statics.createNewUser = function(email, password, lastName, firstName, pseudo, clientId, cb) {
+userSchema.statics.createNewUser = function(email, password, clientId, cb) {
   var now = new Date();
 
   userModel.create({
     email: email,
     password: sha1(password + email),
-    lastName: lastName,
-    firstName: firstName,
-    pseudo: pseudo,
     registrationClient: clientId,
     registrationDate: now
   }, cb);
