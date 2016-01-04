@@ -55,7 +55,11 @@ router.post('', function (req, res, next) {
                     res.status(201);
                     res.send({
                       email: newUser.email,
-                      public_id: newUser.publicId
+                      public_id: newUser.publicId,
+                      facebook_id: '',
+                      firstName: '',
+                      lastName: '',
+                      pseudo: ''
                     });
                   }
                 });
@@ -103,7 +107,14 @@ router.patch('', function (req, res, next) {
           else {
             logger.info('User updated (' + req.authUser.firstName + ')');
             res.status(200);
-            res.send("Done");
+            res.send({
+              email: req.authUser.email,
+              public_id: req.authUser.publicId,
+              facebook_id: req.authUser.facebookId,
+              firstName: req.authUser.firstName,
+              lastName: req.authUser.lastName,
+              pseudo: req.authUser.pseudo
+            });
           }
 
         });
