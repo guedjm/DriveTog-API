@@ -42,6 +42,16 @@ userSchema.statics.getUserById = function (userId, cb) {
   userModel.findOne({_id: userId}, cb);
 };
 
+userSchema.methods.addFacebookData = function (facebookId, lastName, firstName, cb) {
+
+  this.facebookId = facebookId;
+  this.lastName = lastName;
+  this.firstName = firstName;
+  this.pseudo = firstName + ' ' + lastName;
+
+  this.save(cb);
+};
+
 
 var userModel = mongoose.model('User', userSchema);
 

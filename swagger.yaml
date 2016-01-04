@@ -2,10 +2,6 @@ swagger: "2.0"
 info:
   version: 0.0.1
   title: DriveTogether API
-  description: The DriveTogether API documentation
-  contact:
-    name: Maxime Guedj
-    email: maxime.guedj@epitech.eu
 host: 192.168.0.106:3001
 basePath: /
 schemes:
@@ -16,10 +12,11 @@ produces:
   - application/json
 security:
   - "Client auth"
-  - "User AccessCode":
-    - all
   - "User Password":
     - all
+  - "User AccessCode":
+    - all
+
 paths:
   /ping:
     get:
@@ -30,7 +27,7 @@ paths:
           description: Server is running
         404:
           description: Server is down
-          
+
   /v1/user:
     post:
       summary: Create a new user
@@ -42,7 +39,7 @@ paths:
           schema:
             type: string
             format: email
-          
+
         - name: password
           in: body
           description: User password
@@ -51,33 +48,140 @@ paths:
             type: string
             format: password
             minLenght: 6
-      
+
       responses:
         201:
           description: User created
-        
-        
-      
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Email address already used
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized request
+          schema:
+            $ref: '#/definitions/Error'
       security:
         - "Client auth": []
-        
+
+definitions:
+  User:
+    type: object
+    properties:
+      email:
+        type: string
+        format: email
+        description: User email
+      publicId:
+        type: string
+        description: User public id
+      facebookId:
+        type: string
+        description: Facebook id
+      firstName:
+        type: string
+        description: User first name
+      lastName:
+        type: string
+        description: User last name
+      pseudo:
+        type: string
+        description: User pseudo
+
+  Error:
+    type: object
+    properties:
+      status:
+        type: int
+        description: Error code
+      error:
+        type: string
+        description: Error message
 
 securityDefinitions:
   "Client auth":
     type: basic
-    description: Client authentification for simple request
+    description: >
+      ###### Request need to be authenticated by HTTP Basic Authentification 
+      
+      Simply add your client secret to the HTTP header of your request:
+      
+      ```
+      
+      Authorization : Basic YOUR_CLIENT_SECRET
     
-  "User AccessCode":
+      ```
+      
+  "User Password":
     type: oauth2
-    flow: accessCode
-    authorizationUrl: http://192.168.0.106:3000/v1/oauth2/authorize
-    tokenUrl: http://192.168.0.106:3000/v1/oauth2/token
+    flow: Password
+    tokenUrl: http://auth_server_url/v1/oauth2/token
+    description: >
+      ###### Request need to bo authenticated by Access token
+      
+      
+      * The `password` access flow follow the [OAuth2 RFC](https://tools.ietf.org/html/rfc6749#section-4.3) :
+        
+        Send a POST request to the *Token* endpoint:
+        
+        ```
+        Host: server.example.com
+        Authorization: Basic YOUR_CLIENT_SECRET
+        Content-Type: application/x-www-form-urlencoded
+
+        grant_type=password&username=USERNAME&password=PASSWORD
+
+        ```
+        
+        
+      * An example response:
+        
+        ```
+        HTTP/1.1 200 OK
+        Content-Type: application/json;charset=UTF-8
+        Cache-Control: no-store
+        Pragma: no-cache
+
+        {
+         "access_token":"2YotnFZFEjr1zCsicMWpAA",
+         "token_type":"example",
+         "expires_in":3600,
+         "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",
+         "example_parameter":"example_value"
+        }
+        ```
+      
+      
     scopes:
       all: Allow all action
 
-  "User Password":
+
+    
+  "User AccessCode":
     type: oauth2
-    flow: password
-    tokenUrl: http://192.168.0.106:3000/v1/oauth2/token
+    flow: AccessCode
+    authorizationUrl: http://auth_server_url/v1/oauth2/authorize
+    tokenUrl: http://auth_server_url/v1/oauth2/token
+    description: >
+      ###### Request need to bo authenticated by Access token
+      
+      * To get an *AccessToken* using the `accessCode` flow please follow the [RFC](https://tools.ietf.org/html/rfc6749#section-4.1) 
+      
+      
+      * Add the *AccessToken* to the HTTP header of your request
+      
+      ```
+      
+      Authorization: Bearer YOUR_ACCESS_TOKEN
+      
+      ```
+      
+      
+    
     scopes:
       all: Allow all action

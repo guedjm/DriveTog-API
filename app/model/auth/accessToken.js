@@ -17,7 +17,8 @@ accessTokenSchema.statics.getToken = function (token, cb) {
   var query = accessTokenModel.findOne({token: token, usable: true, expirationDate: {$gt: new Date()}});
 
   query.populate('client', '_id clientId clientType applicationName activated');
-  query.select('_id user');
+  query.populate('user');
+  query.select('_id');
   query.exec(cb);
 };
 

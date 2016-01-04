@@ -1,6 +1,6 @@
 var logger = require(__base + 'bin/logger');
 var clientModel = require(__base + 'app/model/client');
-var userModel = require(__base + 'app/model/user');
+var tokenModel = require(__base + 'app/model/auth/accessToken');
 var clientRequestModel = require(__base + 'app/model/clientRequest');
 var error = require(__base + 'app/misc/error');
 
@@ -134,7 +134,7 @@ function authenticateUser(authParam, cb) {
 
   logger.info('Authenticating user ...');
 
-  userModel.getToken(authParam[1], function (err, token) {
+  tokenModel.getToken(authParam[1], function (err, token) {
     if (err) {
       logger.error('Unable to get token');
       cb(err, null, null);
