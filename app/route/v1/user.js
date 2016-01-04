@@ -81,7 +81,7 @@ router.post('', function (req, res, next) {
 
 });
 
-router.patch('', function (req, res, next) {
+router.put('', function (req, res, next) {
 
   logger.info('Receive an user update request');
 

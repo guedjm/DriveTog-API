@@ -69,6 +69,47 @@ paths:
       security:
         - "Client auth": []
 
+    patch:
+      summary: Add facebook information to user
+      parameters:
+        - name: facebookId
+          in: body
+          description: User facebook id
+          required: true
+          schema:
+            type: string
+        - name: lastName
+          in: body
+          description: User last name
+          required: true
+          schema:
+            type: string
+        - name: firstName
+          in: body
+          description: User first name
+          required: true
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: User updated
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized request
+          schema:
+            $ref: '#/definitions/Error'
+      security:
+        - "User Password":
+          - all
+        - "User AccessCode":
+          - all
+
 definitions:
   User:
     type: object
@@ -77,10 +118,10 @@ definitions:
         type: string
         format: email
         description: User email
-      publicId:
+      public_id:
         type: string
         description: User public id
-      facebookId:
+      facebook_id:
         type: string
         description: Facebook id
       firstName:
@@ -171,17 +212,14 @@ securityDefinitions:
       ###### Request need to bo authenticated by Access token
       
       * To get an *AccessToken* using the `accessCode` flow please follow the [RFC](https://tools.ietf.org/html/rfc6749#section-4.1) 
-      
-      
+
       * Add the *AccessToken* to the HTTP header of your request
-      
+
       ```
       
       Authorization: Bearer YOUR_ACCESS_TOKEN
       
       ```
-      
-      
-    
+
     scopes:
       all: Allow all action
