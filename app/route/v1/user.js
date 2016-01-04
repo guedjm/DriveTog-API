@@ -54,7 +54,8 @@ router.post('', function (req, res, next) {
 
                     res.status(201);
                     res.send({
-                      email: newUser.email
+                      email: newUser.email,
+                      public_id: newUser.publicId
                     });
                   }
                 });

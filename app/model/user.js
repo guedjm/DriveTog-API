@@ -4,6 +4,8 @@ var sha1 = require('sha1');
 var userSchema = new mongoose.Schema({
   email: String,
   password: String,
+  publicId: String,
+  facebookId: String,
 
   lastName: String,
   firstName: String,
@@ -20,6 +22,7 @@ userSchema.statics.createNewUser = function(email, password, requestId, cb) {
   userModel.create({
     email: email,
     password: sha1(password + email),
+    publicId: sha1(email + password + now.toTimeString),
     registrationRequest: requestId,
     registrationDate: now
   }, cb);

@@ -155,6 +155,7 @@ describe('Testing /v1/user', function () {
         expect(res.statusCode).to.equal(201);
         expect(reply.email).to.not.be.undefined;
         expect(reply.email).to.equal(config.test.user.email);
+        expect(reply.public_id).to.not.be.undefined;
         done();
       });
     });
