@@ -1,0 +1,83 @@
+swagger: "2.0"
+info:
+  version: 0.0.1
+  title: DriveTogether API
+  description: The DriveTogether API documentation
+  contact:
+    name: Maxime Guedj
+    email: maxime.guedj@epitech.eu
+host: 192.168.0.106:3001
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+security:
+  - "Client auth"
+  - "User AccessCode":
+    - all
+  - "User Password":
+    - all
+paths:
+  /ping:
+    get:
+      summary: Simply reply "pong"
+      description: Allow to check api is running
+      responses:
+        200:
+          description: Server is running
+        404:
+          description: Server is down
+          
+  /v1/user:
+    post:
+      summary: Create a new user
+      parameters:
+        - name: email
+          in: body
+          description: User email
+          required: true
+          schema:
+            type: string
+            format: email
+          
+        - name: password
+          in: body
+          description: User password
+          required: true
+          schema:
+            type: string
+            format: password
+            minLenght: 6
+      
+      responses:
+        201:
+          description: User created
+        
+        
+      
+      security:
+        - "Client auth": []
+        
+
+securityDefinitions:
+  "Client auth":
+    type: basic
+    description: Client authentification for simple request
+    
+  "User AccessCode":
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: http://192.168.0.106:3000/v1/oauth2/authorize
+    tokenUrl: http://192.168.0.106:3000/v1/oauth2/token
+    scopes:
+      all: Allow all action
+
+  "User Password":
+    type: oauth2
+    flow: password
+    tokenUrl: http://192.168.0.106:3000/v1/oauth2/token
+    scopes:
+      all: Allow all action
