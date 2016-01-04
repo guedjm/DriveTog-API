@@ -20,9 +20,11 @@ app.use(authorizationMiddleware);
 //Setting routes
 var ping = require(__base + 'app/route/ping');
 var user = require(__base + 'app/route/v1/user');
+var userFacebook = require(__base + 'app/route/v1/user/facebook');
 
 app.use('/ping', ping);
 app.use('/v1/user', user);
+app.use('/v1/user/facebook', userFacebook);
 
 
 // 404 error

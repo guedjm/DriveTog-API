@@ -5,7 +5,9 @@ var userSchema = new mongoose.Schema({
   email: String,
   password: String,
   publicId: String,
+
   facebookId: String,
+  facebookFriends: [String],
 
   lastName: String,
   firstName: String,
@@ -42,12 +44,13 @@ userSchema.statics.getUserById = function (userId, cb) {
   userModel.findOne({_id: userId}, cb);
 };
 
-userSchema.methods.addFacebookData = function (facebookId, lastName, firstName, cb) {
+userSchema.methods.addFacebookData = function (facebookId, lastName, firstName, friends, cb) {
 
   this.facebookId = facebookId;
   this.lastName = lastName;
   this.firstName = firstName;
   this.pseudo = firstName + ' ' + lastName;
+  this.facebookFriends = friends;
 
   this.save(cb);
 };

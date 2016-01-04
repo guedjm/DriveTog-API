@@ -24,6 +24,10 @@ var userAlreadyExistError = {
   status : 409,
   message : 'Email address already used'};
 
+var userAlreadyFacebook = {
+  status: 409,
+  message: 'Facebook account already linked'};
+
 
 var internalServerError = {
   status : 500,
@@ -37,3 +41,4 @@ module.exports.passwordTooShortError = passwordTooShortError;
 module.exports.internalServerError = internalServerError;
 module.exports.userAlreadyExistError = userAlreadyExistError;
 module.exports.invalidEmailError = invalidEmailError;
+module.exports.userAlreadyFacebook = userAlreadyFacebook;

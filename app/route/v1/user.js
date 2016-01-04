@@ -81,46 +81,4 @@ router.post('', function (req, res, next) {
 
 });
 
-router.put('', function (req, res, next) {
-
-  logger.info('Receive an user update request');
-
-  //Check user authenticated
-  if (req.authType != 'user') {
-    next(error.unauthorizedError);
-  }
-  else {
-
-    //Check request
-    if (req.body.facebookId == undefined
-      || req.body.lastName == undefined
-      || req.body.firstName == undefined) {
-      next(error.invalidRequestError);
-    }
-    else {
-      req.authUser.addFacebookData(req.body.facebookId,
-        req.body.lastName, req.body.firstName, function (err) {
-          if (err) {
-            logger.error('Unable to update user ...');
-            next(err.internalServerError);
-          }
-          else {
-            logger.info('User updated (' + req.authUser.firstName + ')');
-            res.status(200);
-            res.send({
-              email: req.authUser.email,
-              public_id: req.authUser.publicId,
-              facebook_id: req.authUser.facebookId,
-              firstName: req.authUser.firstName,
-              lastName: req.authUser.lastName,
-              pseudo: req.authUser.pseudo
-            });
-          }
-
-        });
-    }
-  }
-
-});
-
 module.exports = router;
