@@ -44,7 +44,7 @@ router.post('', function (req, res, next) {
             else {
 
               //Create user
-              userModel.createNewUser(req.body.email, req.body.password, req.authClient._id, function (err, newUser) {
+              userModel.createNewUser(req.body.email, req.body.password, req.clientRequest._id, function (err, newUser) {
                   if (err || newUser == undefined) {
                     logger.error('Unable to create new user');
                     next(error.internalServerError);
