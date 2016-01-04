@@ -41,8 +41,8 @@ router.post('', function (req, res, next) {
               res.status(200);
               res.send({
                 email: req.authUser.email,
-                public_id: req.authUser.publicId,
-                facebook_id: req.authUser.facebookId,
+                publicId: req.authUser.publicId,
+                facebookId: req.authUser.facebookId,
                 firstName: req.authUser.firstName,
                 lastName: req.authUser.lastName,
                 pseudo: req.authUser.pseudo

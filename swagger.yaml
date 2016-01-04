@@ -69,7 +69,8 @@ paths:
       security:
         - "Client auth": []
 
-    patch:
+  /v1/user/facebook:
+    post:
       summary: Add facebook information to user
       parameters:
         - name: facebookId
@@ -118,10 +119,10 @@ definitions:
         type: string
         format: email
         description: User email
-      public_id:
+      publicId:
         type: string
         description: User public id
-      facebook_id:
+      facebookId:
         type: string
         description: Facebook id
       firstName:
@@ -133,6 +134,25 @@ definitions:
       pseudo:
         type: string
         description: User pseudo
+
+  Friend:
+    type: object
+    properties:
+      publicId:
+        type: string
+        description: Friend public id
+      pseudo:
+        type: string
+        description: Friend pseudo
+      firstName:
+        type: string
+        description: Friend first name
+      lastName:
+        type: string
+        description: Friend last name
+      state:
+        type: int
+        description: State of the friend (0: friend/ 1: invitation send / 2: request)
 
   Error:
     type: object
@@ -192,8 +212,7 @@ securityDefinitions:
          "access_token":"2YotnFZFEjr1zCsicMWpAA",
          "token_type":"example",
          "expires_in":3600,
-         "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",
-         "example_parameter":"example_value"
+         "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA"
         }
         ```
       
